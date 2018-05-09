@@ -1,3 +1,10 @@
+<script type="text/javascript" src="js/del_category.js">
+</script>
+<?php
+require_once "./connect.php";
+$sql = "SELECT id_dm, ten_dm FROM dmsanpham ORDER BY id_dm ASC";
+$query = mysqli_query($conn, $sql);
+?>
 <div class="row">
   <ol class="breadcrumb">
     <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
@@ -28,62 +35,34 @@
             </tr>
           </thead>
           <tbody>
+            <?php
+            while($row = mysqli_fetch_array($query)){
+            ?>
             <tr>
-              <td data-checkbox="true">1</td>
-              <td data-checkbox="true"><a href="quantri.php?page_layout=suadm">iPhone</a></td>
+              <td data-checkbox="true"><?php echo $row["id_dm"] ?></td>
+              <td data-checkbox="true">
+                <a href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
+                  <?php echo $row["ten_dm"] ?>
+                </a>
+              </td>
               <td>
-                <a href="quantri.php?page_layout=suadm"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
+                <a href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
+                  <span>
+                    <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/>
+                    </svg>
+                  </span>
+                </a>
               </td>
 
               <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
+                <a href="del_category.php?id_dm=<?php echo $row["id_dm"] ?>">
+                  <span>
+                    <svg onclick=" return xoaDanhMuc();" class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg>
+                  </span>
+                </a>
               </td>
             </tr>
-            <tr>
-              <td data-checkbox="true">2</td>
-              <td data-checkbox="true"><a href="#">Samsung</a></td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr>
-              <td data-checkbox="true">3</td>
-              <td data-checkbox="true"><a href="#">Oppo</a></td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr>
-              <td data-checkbox="true">4</td>
-              <td data-checkbox="true"><a href="#">Sony</a></td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr>
-              <td data-checkbox="true">5</td>
-              <td data-checkbox="true"><a href="#">HTC</a></td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-
+            <?php } ?>
           </tbody>
         </table>
         <ul class="pagination" style="float: right;">

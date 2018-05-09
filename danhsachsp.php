@@ -1,3 +1,9 @@
+<?php
+require_once "./connect.php";
+$sql = "SELECT id_sp, ten_sp, gia_sp, ten_dm, anh_sp FROM dmsanpham, sanpham
+        WHERE dmsanpham.id_dm = sanpham.id_dm";
+$query = mysqli_query($conn, $sql);
+?>
 <div class="row">
   <ol class="breadcrumb">
     <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
@@ -30,91 +36,34 @@
             </tr>
           </thead>
           <tbody>
+            <?php
+            while ($row = mysqli_fetch_array($query)) {
+            ?>
             <tr style="height: 300px;">
-              <td data-checkbox="true">1</td>
-              <td data-checkbox="true"><a href="./quantri.php?page_layout=suasp">Sky A840 Đen+Trắng Fullbox(2 Pin+Sạc cốc)</a></td>
-              <td data-checkbox="true">8,600,000 VNĐ</td>
-              <td data-sortable="true">Sky</td>
+              <td data-checkbox="true"><?php echo $row["id_sp"]?></td>
+              <td data-checkbox="true">
+                <a href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                  <?php echo $row["ten_sp"]?>
+                </a>
+              </td>
+              <td data-checkbox="true"><?php echo number_format($row["gia_sp"])?></td>
+              <td data-sortable="true"><?php echo $row["ten_dm"]?></td>
               <td data-sortable="true">
-                <span class="thumb"><img width="80px" height="150px" src="anh/prd07.png" /></span>
-
+                <span class="thumb"><img width="80px" height="150px" src="anh/<?php echo $row["anh_sp"] ?>" /></span>
               </td>
               <td>
-                <a href="./quantri.php?page_layout=suasp"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
+                <a href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                  <span>
+                    <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg>
+                  </span>
+                </a>
               </td>
 
               <td>
                 <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
               </td>
             </tr>
-            <tr style="height: 300px;">
-              <td data-checkbox="true">2</td>
-              <td data-checkbox="true"><a href="#">Lumia-800</a></td>
-              <td data-checkbox="true">8,600,000 VNĐ</td>
-              <td data-sortable="true">Nokia</td>
-              <td data-sortable="true">
-                <span class="thumb"><img width="80px" height="150px" src="anh/prd07.png" /></span>
-
-              </td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr style="height: 300px;">
-              <td data-checkbox="true">3</td>
-              <td data-checkbox="true"><a href="#">Lumia-800</a></td>
-              <td data-checkbox="true">8,600,000 VNĐ</td>
-              <td data-sortable="true">Nokia</td>
-              <td data-sortable="true">
-                <span class="thumb"><img width="80px" height="150px" src="anh/prd07.png" /></span>
-
-              </td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr style="height: 300px;">
-              <td data-checkbox="true">4</td>
-              <td data-checkbox="true"><a href="#">Lumia-800</a></td>
-              <td data-checkbox="true">8,600,000 VNĐ</td>
-              <td data-sortable="true">Nokia</td>
-              <td data-sortable="true">
-                <span class="thumb"><img width="80px" height="150px" src="anh/prd07.png" /></span>
-
-              </td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
-            <tr style="height: 300px;">
-              <td data-checkbox="true">5</td>
-              <td data-checkbox="true"><a href="#">Lumia-800</a></td>
-              <td data-checkbox="true">8,600,000 VNĐ</td>
-              <td data-sortable="true">Nokia</td>
-              <td data-sortable="true">
-                <span class="thumb"><img width="80px" height="150px" src="anh/prd07.png" /></span>
-
-              </td>
-              <td>
-                <a href="#"><span><svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg></span></a>
-              </td>
-
-              <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
-              </td>
-            </tr>
+            <?php } ?>
           </tbody>
         </table>
         <ul class="pagination" style="float: right;">
