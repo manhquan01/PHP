@@ -1,3 +1,23 @@
+<?php
+require_once "./connect.php";
+if (isset($_POST["submit"])) {
+  $ten_dm = $_POST["ten_dm"];
+  if (isset($ten_dm)) {
+    $sql_compare = "SELECT ten_dm FROM dmsanpham WHERE ten_dm = \"$ten_dm\" ";
+    $query_compare = mysqli_query($conn, $sql_compare);
+    $row_compare = mysqli_num_rows($query_compare);
+    if ($row_compare > 0) {
+      echo "<center class=\"alert alert-danger\"> This category already exist!
+            </center>";
+    }
+    else{
+      $sql = "INSERT INTO dmsanpham (ten_dm) VALUES (\"$ten_dm\")";
+      $query = mysqli_query($conn, $sql);
+      header("location: quantri.php?page_layout=danhsachdm");
+    }
+  }
+}
+?>
 <div class="row">
   <ol class="breadcrumb">
     <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
@@ -23,7 +43,7 @@
             <div class="form-group">
               <label>Tên danh mục</label>
               <input class="form-control" type="text" required="" name="ten_dm">
-            </div>                                          
+            </div>
             <button type="submit" class="btn btn-primary" name="submit">Thêm mới</button>
             <button type="reset" class="btn btn-default">Làm mới</button>
 

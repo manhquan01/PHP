@@ -10,7 +10,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vietpro Mobile Shop</title>
+    <title>Mobile Shop</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/datepicker3.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
@@ -35,7 +35,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./quantri.php"><span>VIETPROSHOP</span>Admin</a>
+          <a class="navbar-brand" href="./quantri.php"><span>Q U A N D A O </span>Admin</a>
           <ul class="user-menu">
             <li class="dropdown pull-right">
 
