@@ -1,8 +1,34 @@
+<script type="text/javascript" src="js/del_product.js">
+</script>
 <?php
 require_once "./connect.php";
+if (isset($_GET["page"])) {
+  $page = $_GET["page"];
+}
+else{
+  $page = 1;
+}
+$rowPerPage = 3;
+$perRow = $page*$rowPerPage-$rowPerPage;
+
 $sql = "SELECT id_sp, ten_sp, gia_sp, ten_dm, anh_sp FROM dmsanpham, sanpham
-        WHERE dmsanpham.id_dm = sanpham.id_dm";
+        WHERE dmsanpham.id_dm = sanpham.id_dm
+        ORDER BY id_sp DESC
+        LIMIT $perRow, $rowPerPage";
 $query = mysqli_query($conn, $sql);
+
+$totalRow = mysqli_num_rows(mysqli_query($conn, "SELECT id_sp FROM sanpham"));
+$totalPage = ceil($totalRow/$rowPerPage);
+$listPage = "";
+for ($i=1; $i <= $totalPage; $i++) {
+  if ($page == $i) {
+    $listPage .= "<li class=\"active\"><a href=\"quantri.php?page_layout=danhsachsp&page=$i\">$i</a></li>";
+  }
+  else{
+    $listPage .= "<li><a href=\"quantri.php?page_layout=danhsachsp&page=$i\">$i</a></li>";
+  }
+
+}
 ?>
 <div class="row">
   <ol class="breadcrumb">
@@ -42,7 +68,7 @@ $query = mysqli_query($conn, $sql);
             <tr style="height: 300px;">
               <td data-checkbox="true"><?php echo $row["id_sp"]?></td>
               <td data-checkbox="true">
-                <a href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
                   <?php echo $row["ten_sp"]?>
                 </a>
               </td>
@@ -52,7 +78,7 @@ $query = mysqli_query($conn, $sql);
                 <span class="thumb"><img width="80px" height="150px" src="anh/<?php echo $row["anh_sp"] ?>" /></span>
               </td>
               <td>
-                <a href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
                   <span>
                     <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg>
                   </span>
@@ -60,22 +86,16 @@ $query = mysqli_query($conn, $sql);
               </td>
 
               <td>
-                <a href="#"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaProduct();\""; } ?> href="del_product.php?id_sp=<?php echo $row["id_sp"]; ?>"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
               </td>
             </tr>
             <?php } ?>
           </tbody>
         </table>
         <ul class="pagination" style="float: right;">
-          <li><a href="#"><<</a></li>
-          <li><a href="#"><</a></li>
-          <li><a href="#">1</a></li>
-          <li class="active"><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">></a></li>
-          <li><a href="#">>></a></li>
+          <li><a href="quantri.php?page_layout=danhsachsp&page=<?php if($page == 1){echo $page;} else{echo $page-1;} ?>"> &laquo; </a></li>
+          <?php echo $listPage; ?>
+          <li><a href="quantri.php?page_layout=danhsachsp&page=<?php if($page == $totalPage){echo $page;} else {echo $page+1;} ?>">&raquo;</a></li>
         </ul>
       </div>
     </div>

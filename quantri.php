@@ -2,6 +2,26 @@
 ob_start();
 session_start();
 require_once "./connect.php";
+// ######### begin phan quyen ###########
+// if (isset($_COOKIE["email"]) && isset($_COOKIE["mk"])) {
+//   $co_email = $_COOKIE["email"];
+//   $co_pass = $_COOKIE["mk"];
+//   $sql_cookie = "SELECT quyen_truy_cap FROM thanhvien
+//                 WHERE email = \"$co_email\" AND mat_khau = \"$co_pass\"";
+//   $query_cookie = mysqli_fetch_array(mysqli_query($conn, $sql_cookie));
+//   //echo $query_cookie["quyen_truy_cap"];
+// }
+// else{
+//   $se_email = $_SESSION["email"];
+//   $se_pass = $_SESSION["mk"];
+//   $sql_session = "SELECT quyen_truy_cap FROM thanhvien
+//                 WHERE email = \"$se_email\" AND mat_khau = \"$se_pass\"";
+//   $query_session =mysqli_fetch_array(mysqli_query($conn, $sql_session));
+//   //echo $query_session["quyen_truy_cap"];
+// }
+
+// ############ end phan quyen ################
+
 if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     isset($_COOKIE['email']) && isset($_COOKIE['mk'])) {
 ?>
@@ -14,15 +34,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/datepicker3.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-
     <!--Icons-->
     <script src="js/lumino.glyphs.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
   </head>
 
   <body>
@@ -61,7 +81,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
       <ul class="nav menu">
         <li class="active"><a href="./quantri.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Trang chủ quản trị</a></li>
         <li class="parent ">
-          <a href="#">
+          <a href="./quantri.php?page_layout=danhsachuser">
             <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Quản lý thành viên
           </a>
           <ul class="children collapse" id="sub-item-1">
@@ -148,6 +168,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
           break;
         case 'themsp':
           require_once "./themsp.php";
+          break;
+        case 'danhsachuser':
+          require_once "./danhsachuser.php";
           break;
         }
       }

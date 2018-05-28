@@ -7,19 +7,22 @@ if (isset($_POST["submit"])) {
   $email = $_POST["email"];
   $pass = $_POST["mk"];
   if (isset($email) && isset($pass)) {
-    $sql = "SELECT email, mat_khau FROM thanhvien
+    $sql = "SELECT email, mat_khau, quyen_truy_cap FROM thanhvien
             WHERE email=\"$email\" AND mat_khau=\"$pass\"";
     $query = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($query);
+    $row = mysqli_fetch_array($query);
     if ($rows > 0) {
       if (isset($_POST["check"]) == "checked") {
         setcookie("email", $email, time()+3600);
         setcookie("mk", $pass, time()+3600);
+        setcookie("permission", $row["quyen_truy_cap"], time()+3600);
         header("location: quantri.php");
       }
       else{
         $_SESSION["email"] = $email;
         $_SESSION["mk"] = $pass;
+        $_SESSION["permission"] = $row["quyen_truy_cap"];
         header("location: quantri.php");
       }
     }
@@ -50,10 +53,9 @@ if (isset($_POST["submit"])) {
 
   <body>
 
-    <div class="row">
+    <div class="row" style="margin: 0;">
       <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
         <div class="login-panel panel panel-default">
-         <!--  <?php echo $rows; if(isset($alert)){echo $alert;} ?> -->
           <div class="panel-heading">Đăng nhập hệ thống quản trị</div>
           <div class="panel-body">
             <?php
