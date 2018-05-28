@@ -1,7 +1,7 @@
 <?php
 $dbHost = "localhost";
 $dbUser = "root";
-$dbpass = "";
+$dbpass = "  ";
 $dbName = "vietproshop";
 $conn = mysqli_connect($dbHost, $dbUser, $dbpass, $dbName);
 
