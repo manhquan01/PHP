@@ -1,8 +1,8 @@
 <?php
 $dbHost = "localhost";
 $dbUser = "root";
-$dbpass = "";
-$dbName = "vietproshop";
+$dbpass = "  ";
+$dbName = "vietproshop1";
 $conn = mysqli_connect($dbHost, $dbUser, $dbpass, $dbName);
 
 if (isset($conn)) {

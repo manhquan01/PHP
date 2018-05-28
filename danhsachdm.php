@@ -1,13 +1,47 @@
-<script type="text/javascript" src="js/del_category.js">
-</script>
+<script type="text/javascript" src="js/del_category.js"></script>
 <?php
 require_once "./connect.php";
-$sql = "SELECT id_dm, ten_dm FROM dmsanpham ORDER BY id_dm ASC";
+
+if (isset($_GET["page"])) {
+  $page = $_GET["page"];
+}
+else{
+  $page = 1;
+}
+$rowPerPage = 5;
+$perRow = $page*$rowPerPage-$rowPerPage;
+
+$sql = "SELECT id_dm, ten_dm FROM dmsanpham
+        ORDER BY id_dm ASC LIMIT $perRow,$rowPerPage";
 $query = mysqli_query($conn, $sql);
+
+$totalRow = mysqli_num_rows(mysqli_query($conn, "SELECT id_dm FROM dmsanpham"));
+$totalPage = ceil($totalRow/$rowPerPage);
+
+$listPage = "";
+for ($i=1; $i <= $totalPage ; $i++) {
+  if ($page == $i) {
+    $listPage .= "<li class=\"active\">
+                  <a href=\"quantri.php?page_layout=danhsachdm&page=$i\">$i</a>
+                  </li>";
+  }
+  else{
+    $listPage .= "<li>
+                  <a href=\"quantri.php?page_layout=danhsachdm&page=$i\">$i</a>
+                  </li>";
+  }
+}
+
 ?>
 <div class="row">
   <ol class="breadcrumb">
-    <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+    <li>
+      <a href="#">
+        <svg class="glyph stroked home">
+          <use xlink:href="#stroked-home"></use>
+        </svg>
+      </a>
+    </li>
     <li class="active"></li>
   </ol>
 </div><!--/.row-->
@@ -46,7 +80,7 @@ $query = mysqli_query($conn, $sql);
                 </a>
               </td>
               <td>
-                <a href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
+                <a <?php if($query_session["quyen_truy_cap"] != 0 Xor $query_cookie["quyen_truy_cap"] != 0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} ?> href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
                   <span>
                     <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/>
                     </svg>
@@ -55,9 +89,9 @@ $query = mysqli_query($conn, $sql);
               </td>
 
               <td>
-                <a href="del_category.php?id_dm=<?php echo $row["id_dm"] ?>">
+                <a <?php if($query_session["quyen_truy_cap"] != 0 Xor $query_cookie["quyen_truy_cap"] != 0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaDanhMuc();\""; } ?> href="del_category.php?id_dm=<?php echo $row["id_dm"] ?>">
                   <span>
-                    <svg onclick=" return xoaDanhMuc();" class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg>
+                    <svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg>
                   </span>
                 </a>
               </td>
@@ -66,15 +100,11 @@ $query = mysqli_query($conn, $sql);
           </tbody>
         </table>
         <ul class="pagination" style="float: right;">
-          <li><a href="#"><<</a></li>
-          <li><a href="#"><</a></li>
-          <li><a href="#">1</a></li>
-          <li class="active"><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">></a></li>
-          <li><a href="#">>></a></li>
+          <li><a href="quantri.php?page_layout=danhsachdm&page=<?php if($page == 1){echo $page;} else {echo $page-1;} ?>">&laquo;</a></li>
+          <?php echo $listPage; ?>
+          <li><a href="quantri.php?page_layout=danhsachdm&page=<?php if($page == $totalPage){echo $page;} else {echo $page+1;} ?>">&raquo;</a></li>
+
+
         </ul>
       </div>
     </div>
