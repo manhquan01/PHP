@@ -1,3 +1,8 @@
+<?php
+require_once "connect.php";
+$sql = "SELECT id_thanhvien FROM thanhvien";
+$rows = mysqli_num_rows(mysqli_query($conn, $sql));
+?>
 <div class="row">
   <ol class="breadcrumb">
     <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
@@ -45,7 +50,7 @@
           <svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
         </div>
         <div class="col-sm-9 col-lg-7 widget-right">
-          <div class="large">24</div>
+          <div class="large"><?php echo $rows;?></div>
           <div class="text-muted">Thành viên</div>
         </div>
       </div>
@@ -82,11 +87,11 @@
           <p>Đây là hệ thống quản trị của website Thương mại điện tử do Học viện Công nghệ Vietpro xây dựng và phát triển, dành cho học viên của khóa học Lập trình web PHP PRO (Nghiêm cấm sao lưu hay chia sẻ dưới mọi hình thức đối với những ai không phải là học viên của Vietpro)</p>
           <br/>
           <p>Hệ thống quản trị này có các chức năng quản lý sau: <br/>
-            - Quản lý Thành viên 
+            - Quản lý Thành viên
             <br/>
-            - Quản lý Danh mục sản phẩm 
+            - Quản lý Danh mục sản phẩm
             <br/>
-            - Quản lý Sản phẩm 
+            - Quản lý Sản phẩm
             <br/>
             - ...</p>
           <br/>

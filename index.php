@@ -6,28 +6,65 @@ require_once "./connect.php";
 if (isset($_POST["submit"])) {
   $email = $_POST["email"];
   $pass = $_POST["mk"];
+
   if (isset($email) && isset($pass)) {
-    $sql = "SELECT email, mat_khau FROM thanhvien
-            WHERE email=\"$email\" AND mat_khau=\"$pass\"";
+    $sql = "SELECT mat_khau, quyen_truy_cap FROM thanhvien
+          WHERE email=\"$email\" ";
     $query = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($query);
+
     if ($rows > 0) {
-      if (isset($_POST["check"]) == "checked") {
-        setcookie("email", $email, time()+3600);
-        setcookie("mk", $pass, time()+3600);
-        header("location: quantri.php");
+      $row = mysqli_fetch_array($query);
+      $pass_hash = $row['mat_khau'];
+
+      if (password_verify($pass, $pass_hash)) {
+        if (isset($_POST["check"]) == "checked") {
+          setcookie("email", $email, time()+3600);
+          setcookie("mk", $pass_hash, time()+3600);
+          setcookie("permission", $row["quyen_truy_cap"], time()+3600);
+          header("location: quantri.php");
+        } else{
+          $_SESSION["email"] = $email;
+          $_SESSION["mk"] = $pass_hash;
+          $_SESSION["permission"] = $row["quyen_truy_cap"];
+          header("location: quantri.php");
+        }
+      } else{
+        echo "<center class=\"alert alert-danger\"> Incorrect password!</center>";
       }
-      else{
-        $_SESSION["email"] = $email;
-        $_SESSION["mk"] = $pass;
-        header("location: quantri.php");
-      }
+    } else{
+      echo "<center class=\"alert alert-danger\"> Account does not exist!</center>";
     }
-    else{
-      echo "<center class=\"alert alert-danger\"> This account does not exist!
-            </center>";
-    }
+
   }
+
+
+
+  // if (isset($email) && isset($pass)) {
+  //   $sql = "SELECT email, mat_khau, quyen_truy_cap FROM thanhvien
+  //           WHERE email=\"$email\" AND mat_khau=\"$pass\"";
+  //   $query = mysqli_query($conn, $sql);
+  //   $rows = mysqli_num_rows($query);
+  //   $row = mysqli_fetch_array($query);
+  //   if ($rows > 0) {
+  //     if (isset($_POST["check"]) == "checked") {
+  //       setcookie("email", $email, time()+3600);
+  //       setcookie("mk", $pass, time()+3600);
+  //       setcookie("permission", $row["quyen_truy_cap"], time()+3600);
+  //       header("location: quantri.php");
+  //     }
+  //     else{
+  //       $_SESSION["email"] = $email;
+  //       $_SESSION["mk"] = $pass;
+  //       $_SESSION["permission"] = $row["quyen_truy_cap"];
+  //       header("location: quantri.php");
+  //     }
+  //   }
+  //   else{
+  //     echo "<center class=\"alert alert-danger\"> This account does not exist!
+  //           </center>";
+  //   }
+  // }
 }
 ?>
 <!DOCTYPE html>

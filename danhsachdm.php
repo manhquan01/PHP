@@ -75,12 +75,12 @@ for ($i=1; $i <= $totalPage ; $i++) {
             <tr>
               <td data-checkbox="true"><?php echo $row["id_dm"] ?></td>
               <td data-checkbox="true">
-                <a href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
                   <?php echo $row["ten_dm"] ?>
                 </a>
               </td>
               <td>
-                <a <?php if($query_session["quyen_truy_cap"] != 0 Xor $query_cookie["quyen_truy_cap"] != 0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} ?> href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="quantri.php?page_layout=suadm&id_dm=<?php echo $row["id_dm"] ?>">
                   <span>
                     <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/>
                     </svg>
@@ -89,7 +89,7 @@ for ($i=1; $i <= $totalPage ; $i++) {
               </td>
 
               <td>
-                <a <?php if($query_session["quyen_truy_cap"] != 0 Xor $query_cookie["quyen_truy_cap"] != 0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaDanhMuc();\""; } ?> href="del_category.php?id_dm=<?php echo $row["id_dm"] ?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaDanhMuc();\""; } ?> href="del_category.php?id_dm=<?php echo $row["id_dm"] ?>">
                   <span>
                     <svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg>
                   </span>

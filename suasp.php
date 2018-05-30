@@ -1,4 +1,5 @@
 <?php
+require_once "./permission.php";
 require_once "./connect.php";
 $id_sp = $_GET["id_sp"];
 if (isset($id_sp)) {
@@ -37,26 +38,6 @@ if (isset($_POST["submit"])) {
   $query_update = mysqli_query($conn, $sql_update);
   header("location: quantri.php?page_layout=danhsachsp");
 }
-//  $pass = "123";
-// // $options = [
-// //     'cost' => 12,
-// // ];
-// // echo $hash = password_hash($pass, PASSWORD_BCRYPT, $options);
-// $timeTarget = 0.05; // 50 milliseconds
-
-// $cost = 8;
-// do {
-//     $cost++;
-//     $start = microtime(true);
-//     password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
-//     $end = microtime(true);
-// } while (($end - $start) < $timeTarget);
-// $options = [
-//     'cost' => $cost,
-// ];
-// echo "Appropriate Cost Found: " . $cost;
-// echo $hash = password_hash($pass, PASSWORD_BCRYPT, $options);
-
 ?>
 <div class="row">
   <ol class="breadcrumb">

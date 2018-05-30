@@ -68,7 +68,7 @@ for ($i=1; $i <= $totalPage; $i++) {
             <tr style="height: 300px;">
               <td data-checkbox="true"><?php echo $row["id_sp"]?></td>
               <td data-checkbox="true">
-                <a href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="./quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
                   <?php echo $row["ten_sp"]?>
                 </a>
               </td>
@@ -78,7 +78,7 @@ for ($i=1; $i <= $totalPage; $i++) {
                 <span class="thumb"><img width="80px" height="150px" src="anh/<?php echo $row["anh_sp"] ?>" /></span>
               </td>
               <td>
-                <a <?php if($query_session["quyen_truy_cap"] != 0 Xor $query_cookie["quyen_truy_cap"] !=0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} ?> href="quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){ echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\""; } ?> href="quantri.php?page_layout=suasp&id_sp=<?php echo $row["id_sp"]?>">
                   <span>
                     <svg class="glyph stroked brush" style="width: 20px;height: 20px;"><use xlink:href="#stroked-brush"/></svg>
                   </span>
@@ -86,7 +86,7 @@ for ($i=1; $i <= $totalPage; $i++) {
               </td>
 
               <td>
-                <a <?php if(($query_session["quyen_truy_cap"] != 0) Xor $query_cookie["quyen_truy_cap"] !=0 ){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaProduct();\""; } ?> href="del_product.php?id_sp=<?php echo $row["id_sp"]; ?>"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
+                <a <?php if(isset($_SESSION["permission"]) == true && $_SESSION["permission"] != 0 || isset($_COOKIE["permission"]) == true && $_COOKIE["permission"] != 0){echo "onclick=\"return false;\""; echo "style=\"cursor: not-allowed;\"";} else{ echo "onclick=\"return xoaProduct();\""; } ?> href="del_product.php?id_sp=<?php echo $row["id_sp"]; ?>"><span><svg class="glyph stroked cancel" style="width: 20px;height: 20px;"><use xlink:href="#stroked-cancel"/></svg></span></a>
               </td>
             </tr>
             <?php } ?>

@@ -7,6 +7,7 @@ if (isset($_SESSION["email"])) {
 elseif (isset($_COOKIE["email"]) && isset($_COOKIE["mk"])) {
   setcookie("email");
   setcookie("mk");
+  setcookie("permission");
   header("location: index.php");
 }
 else{

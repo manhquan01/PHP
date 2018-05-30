@@ -2,25 +2,6 @@
 ob_start();
 session_start();
 require_once "./connect.php";
-######### begin phan quyen ###########
-if (isset($_COOKIE["email"]) && isset($_COOKIE["mk"])) {
-  $co_email = $_COOKIE["email"];
-  $co_pass = $_COOKIE["mk"];
-  $sql_cookie = "SELECT quyen_truy_cap FROM thanhvien
-                WHERE email = \"$co_email\" AND mat_khau = \"$co_pass\"";
-  $query_cookie = mysqli_fetch_array(mysqli_query($conn, $sql_cookie));
-  //echo $query_cookie["quyen_truy_cap"];
-}
-else{
-  $se_email = $_SESSION["email"];
-  $se_pass = $_SESSION["mk"];
-  $sql_session = "SELECT quyen_truy_cap FROM thanhvien
-                WHERE email = \"$se_email\" AND mat_khau = \"$se_pass\"";
-  $query_session =mysqli_fetch_array(mysqli_query($conn, $sql_session));
-  //echo $query_session["quyen_truy_cap"];
-}
-
-############ end phan quyen ################
 
 if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     isset($_COOKIE['email']) && isset($_COOKIE['mk'])) {
@@ -36,10 +17,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     <link href="css/styles.css" rel="stylesheet">
     <!--Icons-->
     <script src="js/lumino.glyphs.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -56,14 +34,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./quantri.php"><span style="font-family: panther v01;">Q U A N D A O </span>Admin</a>
+          <a class="navbar-brand" href="./quantri.php"><span>Q U A N D A O </span>Admin</a>
           <ul class="user-menu">
             <li class="dropdown pull-right">
 
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg><span style="color: white;">Xin chào, <?php if(isset($_SESSION["email"])){echo $_SESSION['email'];} elseif(isset($_COOKIE["email"])){echo $_COOKIE["email"];} ?></span> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Thông tin thành viên</a></li>
-                <li><a href="#"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"></use></svg> Cài đặt</a></li>
+                <li><a href="quantri.php?page_layout=change_password"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"></use></svg> Đổi mật khẩu</a></li>
                 <li><a href="logout.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Đăng xuất</a></li>
               </ul>
             </li>
@@ -87,7 +65,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
           </a>
           <ul class="children collapse" id="sub-item-1">
             <li>
-              <a href="#">
+              <a href="quantri.php?page_layout=add_user">
                 <svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg>
                 Thêm mới
               </a>
@@ -172,6 +150,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
           break;
         case 'danhsachuser':
           require_once "./danhsachuser.php";
+          break;
+        case 'add_user':
+          require_once "./add_user.php";
+          break;
+        case 'change_pass_all_user':
+          require_once "./change_pass_all_user.php";
+          break;
+        case "change_password":
+          require_once "./change_password.php";
           break;
         }
       }
