@@ -2,25 +2,25 @@
 ob_start();
 session_start();
 require_once "./connect.php";
-######### begin phan quyen ###########
-if (isset($_COOKIE["email"]) && isset($_COOKIE["mk"])) {
-  $co_email = $_COOKIE["email"];
-  $co_pass = $_COOKIE["mk"];
-  $sql_cookie = "SELECT quyen_truy_cap FROM thanhvien
-                WHERE email = \"$co_email\" AND mat_khau = \"$co_pass\"";
-  $query_cookie = mysqli_fetch_array(mysqli_query($conn, $sql_cookie));
-  //echo $query_cookie["quyen_truy_cap"];
-}
-else{
-  $se_email = $_SESSION["email"];
-  $se_pass = $_SESSION["mk"];
-  $sql_session = "SELECT quyen_truy_cap FROM thanhvien
-                WHERE email = \"$se_email\" AND mat_khau = \"$se_pass\"";
-  $query_session =mysqli_fetch_array(mysqli_query($conn, $sql_session));
-  //echo $query_session["quyen_truy_cap"];
-}
+// ######### begin phan quyen ###########
+// if (isset($_COOKIE["email"]) && isset($_COOKIE["mk"])) {
+//   $co_email = $_COOKIE["email"];
+//   $co_pass = $_COOKIE["mk"];
+//   $sql_cookie = "SELECT quyen_truy_cap FROM thanhvien
+//                 WHERE email = \"$co_email\" AND mat_khau = \"$co_pass\"";
+//   $query_cookie = mysqli_fetch_array(mysqli_query($conn, $sql_cookie));
+//   //echo $query_cookie["quyen_truy_cap"];
+// }
+// else{
+//   $se_email = $_SESSION["email"];
+//   $se_pass = $_SESSION["mk"];
+//   $sql_session = "SELECT quyen_truy_cap FROM thanhvien
+//                 WHERE email = \"$se_email\" AND mat_khau = \"$se_pass\"";
+//   $query_session =mysqli_fetch_array(mysqli_query($conn, $sql_session));
+//   //echo $query_session["quyen_truy_cap"];
+// }
 
-############ end phan quyen ################
+// ############ end phan quyen ################
 
 if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     isset($_COOKIE['email']) && isset($_COOKIE['mk'])) {
@@ -36,10 +36,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
     <link href="css/styles.css" rel="stylesheet">
     <!--Icons-->
     <script src="js/lumino.glyphs.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -56,7 +55,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['mk']) ||
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./quantri.php"><span style="font-family: panther v01;">Q U A N D A O </span>Admin</a>
+          <a class="navbar-brand" href="./quantri.php"><span>Q U A N D A O </span>Admin</a>
           <ul class="user-menu">
             <li class="dropdown pull-right">
 

@@ -1,4 +1,5 @@
 <?php
+require_once "./permission.php";
 require_once "./connect.php";
 $id_sp = $_GET["id_sp"];
 if (isset($id_sp)) {

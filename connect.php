@@ -2,7 +2,7 @@
 $dbHost = "localhost";
 $dbUser = "root";
 $dbpass = "  ";
-$dbName = "vietproshop1";
+$dbName = "vietproshop";
 $conn = mysqli_connect($dbHost, $dbUser, $dbpass, $dbName);
 
 if (isset($conn)) {

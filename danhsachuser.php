@@ -1,4 +1,5 @@
 <?php
+require_once "./permission.php";
 require_once "./connect.php";
 $sql = "SELECT id_thanhvien, email, quyen_truy_cap FROM thanhvien";
 $query = mysqli_query($conn, $sql);
